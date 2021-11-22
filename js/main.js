@@ -79,6 +79,9 @@ const play_effects = () => {
 
 const play_song = () => {
   progress_bar.value = audio.currentTime;
+  window.setTimeout(() => {
+    progress_bar.max = audio.duration;
+  }, 500);
   audio.play();
   play_effects();
 };
@@ -122,7 +125,10 @@ play_btn.addEventListener("click", () => {
 window.addEventListener("load", () => {
   first_song();
   progress_bar.value = 0;
-  progress_bar.max = audio.duration;
+
+  window.setTimeout(() => {
+    progress_bar.max = audio.duration;
+  }, 500);
 
   window.setInterval(() => {
     progress_bar.value = audio.currentTime;
@@ -149,6 +155,10 @@ window.addEventListener("load", () => {
     } else if (event.target.matches(".list-item")) {
       select_song(event.target.id.slice(5, 6));
     }
+  });
+
+  audio.addEventListener("ended", () => {
+    next_song();
   });
 });
 
